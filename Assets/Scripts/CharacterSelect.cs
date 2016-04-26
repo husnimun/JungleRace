@@ -37,7 +37,7 @@ public class CharacterSelect : MonoBehaviour {
         } else {
             Settings.Instance.playerOne = Settings.Instance.CharacterString(playerOne);
             Settings.Instance.playerTwo = Settings.Instance.CharacterString(playerTwo);
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("StageSelect");
         }
     }
 

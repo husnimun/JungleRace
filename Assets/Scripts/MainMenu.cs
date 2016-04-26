@@ -4,19 +4,19 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
+    AudioSource audio;
 
-    public Button PlayBtn;
-    public Button SettingsBtn;
-    public Button CreditBtn;
-    public Button ScoreBoardBtn;
-    public Button ExitBtn;
+    void Start() {
+        audio = GetComponent<AudioSource>();
+        DontDestroyOnLoad(audio);
+    }
 
-	void Start () {
-        PlayBtn = PlayBtn.GetComponent<Button>();
-        SettingsBtn = SettingsBtn.GetComponent<Button>();
-        CreditBtn = CreditBtn.GetComponent<Button>();
-        ScoreBoardBtn = ScoreBoardBtn.GetComponent<Button>();
-        ExitBtn = ExitBtn.GetComponent<Button>();
+    void OnLevelWasLoaded(int level) {
+        if (level == 3)
+        {
+            Destroy(audio.gameObject);
+        }
+
     }
 
     public void PlayBtnPress() {

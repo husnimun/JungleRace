@@ -13,9 +13,15 @@ public class Player : MonoBehaviour {
 	private bool finish = false;
     private int coins = 0;
 
+    private AudioSource audio;
+
+    [SerializeField] public AudioClip audioclip;
+
     public float forceUp = 250;
     public float forceForward = 100;
     float forceRight = 150;
+
+    public bool isBatasAtas = false;
 
     void Awake() {
         // Load and setup mesh and materials for player
@@ -34,6 +40,8 @@ public class Player : MonoBehaviour {
         animator = GetComponent<Animator>();
         collider = GetComponent<MeshCollider>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        audio = GetComponent<AudioSource>();
+
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -55,40 +63,46 @@ public class Player : MonoBehaviour {
         if (isColliding) {
             animator.SetTrigger("Jump");
             rb.AddRelativeForce(new Vector3(0, 200, 75));
+            audio.PlayOneShot(audioclip, 1.0f);
         }
     }
 
     public void JumpSkillForward() {
-        //if (isColliding) {
-            animator.SetTrigger("Jump");
-            rb.AddRelativeForce(new Vector3(0, 300, 300));
-        //}
+        if (!isBatasAtas) {
+        animator.SetTrigger("Jump");
+        rb.AddRelativeForce(new Vector3(0, 300, 300));
+        audio.Play();
+        }
 	}
 
 	public void JumpLeft() {
         if (transform.position.x > -3) {
-                float force;
-                float positionX = transform.position.x;
-                if (positionX <= 0.2f)
-                    force = jumpSide(positionX + 3);
-                else
-                    force = jumpSide(positionX);
-                animator.SetTrigger("Jump");
+            float force;
+            float positionX = transform.position.x;
+            if (positionX <= 0.2f)
+                force = jumpSide(positionX + 3);
+            else
+                force = jumpSide(positionX);
+            animator.SetTrigger("Jump");
+            if (isColliding)
                 rb.AddRelativeForce(new Vector3(-force, forceUp, 0));
+            else
+                rb.AddRelativeForce(new Vector3(-force, 0, 0));
+            audio.Play(); 
         }
 	}
 
 	public void JumpRight() {
         if (transform.position.x < 3){
-                float force;
-                float positionX = transform.position.x;
-                if (positionX >= -0.2f)
-                    force = jumpSide(positionX - 3);
-                else
-                    force = jumpSide(positionX);
-                animator.SetTrigger("Jump");
-                rb.AddRelativeForce(new Vector3(force, forceUp, 0));
-
+            float force;
+            float positionX = transform.position.x;
+            if (positionX >= -0.2f)
+                force = jumpSide(positionX - 3);
+            else
+                force = jumpSide(positionX);
+            animator.SetTrigger("Jump");
+            rb.AddRelativeForce(new Vector3(force, forceUp, 0));
+            audio.Play(); 
         }
 	}
 

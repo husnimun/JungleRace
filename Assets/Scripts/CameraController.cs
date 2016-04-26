@@ -5,6 +5,7 @@ public class CameraController : MonoBehaviour {
 
     GameObject player;
     private Vector3 offset;
+    private bool isFinished = false;
 	
 	void Start() {
         offset = transform.position - player.transform.position;
@@ -21,11 +22,45 @@ public class CameraController : MonoBehaviour {
         return point;                           // return it
      }
 
-	void FixedUpdate() {
-        //transform.position = player.transform.rotation * (player.transform.position + offset
-        // Vector3 rotation = new Vector3(rotateX, rotateY, rotateZ
-        // transform.rotation = Quaternion.Euler(rotation);
-        Vector3 playerPos = player.transform.position;
-        transform.position = new Vector3(playerPos.x, 0, playerPos.z) + offset;
+	void LateUpdate() {
+        if (!isFinished)
+        {
+            Vector3 playerPos = player.transform.position;
+            transform.position = new Vector3(playerPos.x, 0, playerPos.z) + offset;   
+        }
     }
+
+    public void setIsFinished(bool val) {
+        isFinished = val;
+    }
+
+    IEnumerator Shake() {
+
+        float elapsed = 0.0f;
+        float duration = 1.0f;
+        float magnitude = 0.01f;
+
+        Vector3 originalCamPos = Camera.main.transform.position;
+
+        while (elapsed < duration) {
+
+            elapsed += Time.deltaTime;          
+
+            float percentComplete = elapsed / duration;         
+            float damper = 1.0f - Mathf.Clamp(4.0f * percentComplete - 3.0f, 0.0f, 1.0f);
+
+            // map value to [-1, 1]
+            float x = Random.value * 2.0f - 1.0f;
+            float y = Random.value * 2.0f - 1.0f;
+            x *= magnitude * damper;
+            y *= magnitude * damper;
+
+            Camera.main.transform.position = new Vector3(x, y, originalCamPos.z);
+
+            yield return null;
+        }
+
+        Camera.main.transform.position = originalCamPos;
+    }
+
 }
