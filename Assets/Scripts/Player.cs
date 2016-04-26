@@ -9,17 +9,20 @@ public class Player : MonoBehaviour {
     new MeshCollider collider;
     MeshRenderer meshRenderer;
 
-    public bool isColliding = false;
+    private bool isColliding = false;
+	private bool finish = false;
+    private int coins = 0;
+
     public float forceUp = 250;
     public float forceForward = 100;
-    public float forceRight = 100;
+    float forceRight = 150;
 
     void Awake() {
         // Load and setup mesh and materials for player
         //string character = Settings.Instance.character;
         //Mesh mesh = (Mesh)Resources.Load("Characters/" + character + "/" + character, typeof(Mesh));
         //Material[] materials = (Resources.LoadAll("Characters/" + character + "/Materials", typeof(Material))).Cast<Material>().ToArray();
-        //GetComponent<MeshFilter>().mesh = mesh;
+        //GetComponent//<MeshFilter>().mesh = mesh;
         //GetComponent<MeshCollider>().sharedMesh = mesh;
         //GetComponent<MeshRenderer>().materials = materials;
     }
@@ -41,25 +44,56 @@ public class Player : MonoBehaviour {
         isColliding = false;
     }
 
-    public void JumpForward() {
-        if ((true)) {
+	void OnTriggerEnter(Collider other) {
+		string name = other.name;
+		if (name == "FinishLine") {
+			finish = true;
+		}
+	}
+
+    public void JumpForward(){
+        if (isColliding) {
             animator.SetTrigger("Jump");
-            rb.AddRelativeForce(new Vector3(0, forceUp, forceForward));
+            rb.AddRelativeForce(new Vector3(0, 200, 75));
         }
+    }
+
+    public void JumpSkillForward() {
+        //if (isColliding) {
+            animator.SetTrigger("Jump");
+            rb.AddRelativeForce(new Vector3(0, 300, 300));
+        //}
 	}
 
 	public void JumpLeft() {
-		if ((isColliding)) {
-			animator.SetTrigger("Jump");
-			rb.AddRelativeForce(new Vector3(-forceRight, forceUp, 0));
-		}
+        if (transform.position.x > -3) {
+                float force;
+                float positionX = transform.position.x;
+                if (positionX <= 0.2f)
+                    force = jumpSide(positionX + 3);
+                else
+                    force = jumpSide(positionX);
+                animator.SetTrigger("Jump");
+                rb.AddRelativeForce(new Vector3(-force, forceUp, 0));
+        }
 	}
 
 	public void JumpRight() {
-		if ((isColliding)) {
-			animator.SetTrigger("Jump");
-			rb.AddRelativeForce(new Vector3(forceRight, forceUp, 0));
-		}
+        if (transform.position.x < 3){
+                float force;
+                float positionX = transform.position.x;
+                if (positionX >= -0.2f)
+                    force = jumpSide(positionX - 3);
+                else
+                    force = jumpSide(positionX);
+                animator.SetTrigger("Jump");
+                rb.AddRelativeForce(new Vector3(force, forceUp, 0));
+
+        }
+	}
+
+	public bool isFinish() {
+		return finish;
 	}
         //void FixedUpdate() {
         //    if ((isColliding) && Input.GetKeyDown("up")) {
@@ -76,5 +110,16 @@ public class Player : MonoBehaviour {
         //        rb.AddRelativeForce(0, forceUp, -forceForward);
         //    }
         //}
+
+    float jumpSide(float dist){
+        return (Mathf.Abs(dist)/3)*150;
     }
-      
+
+    public void AddCoin() {
+        coins++;
+    }
+
+    public int GetCoins() {
+        return coins;
+    }
+}

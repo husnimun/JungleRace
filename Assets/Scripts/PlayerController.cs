@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -6,12 +7,23 @@ public class PlayerController : MonoBehaviour {
     public GameObject[] charactersPrefab;
     public GameObject playerOneCam;
     public GameObject playerTwoCam;
+    public Text timerText;
+
+    public Text countDownP1;
+    public Text countDownP2;
+
 
     GameObject playerOneObj;
     GameObject playerTwoObj;
 
 	private GestureListener simplegl;
 	private int tempjump;
+    private float countDown = 3f;
+    private float timer = 0;
+    private float minutes = 0;
+    private float seconds = 0;
+    private bool gameStarted = false;
+    bool isLoncatKecil = true;
 
 
     Player playerOne;
@@ -35,27 +47,70 @@ public class PlayerController : MonoBehaviour {
         // Set camera
         playerOneCam.GetComponent<CameraController>().SetPlayer(playerOneObj);
         playerTwoCam.GetComponent<CameraController>().SetPlayer(playerTwoObj);
+
     }
 	
 
 	void Update () {
-		if(simplegl.IsJump(0)){
-			playerOne.JumpForward ();
-		}
-		if(simplegl.IsJump(1)){
-			playerTwo.JumpForward ();
-		}
-		if(simplegl.IsSwipeRight(0)){
-			playerOne.JumpRight ();
-		}
-		if(simplegl.IsSwipeRight(1)){
-			playerTwo.JumpRight ();
-		}
-		if(simplegl.IsSwipeLeft(0)){
-			playerOne.JumpLeft ();
-		}
-		if(simplegl.IsSwipeLeft(1)){
-			playerTwo.JumpLeft ();
-		}
+
+
+        // Print count down text
+        if (countDown >= 0.5)
+        {
+            countDownP1.text = countDown.ToString("0");
+            countDownP2.text = countDown.ToString("0");
+            countDown -= Time.deltaTime;
+
+        }
+        else
+        {
+            countDownP1.text = "";
+            countDownP2.text = "";
+            gameStarted = true;
+        }
+
+        if (gameStarted)
+        {
+            timer += Time.deltaTime;
+            minutes = Mathf.Floor(timer / 60);
+            seconds = timer % 60;
+            timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+
+            if (isLoncatKecil == true){
+                StartCoroutine(defaultJump());
+            }
+
+            if (simplegl.IsJump(0)) {
+                playerOne.JumpSkillForward();
+            }
+            if (simplegl.IsJump(1)) {
+                playerTwo.JumpSkillForward();
+            }
+            if (simplegl.IsSwipeRight(0)) {
+                playerOne.JumpRight();
+            }
+            if (simplegl.IsSwipeRight(1)) {
+                playerTwo.JumpRight();
+            }
+            if (simplegl.IsSwipeLeft(0)) {
+                playerOne.JumpLeft();
+            }
+            if (simplegl.IsSwipeLeft(1)) {
+                playerTwo.JumpLeft();
+            }
+
+
+            // TODO: Do something when player is finished
+            // Use this function: PlayerOne.isFinished() or PlayerTwo.isFinished()
+        }
+
 	}
+
+    IEnumerator defaultJump(){
+        isLoncatKecil = false;
+        playerOne.JumpForward();
+        playerTwo.JumpForward();
+        yield return new WaitForSeconds(1f);
+        isLoncatKecil = true;
+    }
 }
