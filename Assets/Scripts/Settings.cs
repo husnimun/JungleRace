@@ -16,6 +16,12 @@
                 return 1;
             case "Como":
                 return 2;
+            case "Tapir":
+                return 3;
+            case "Harimau":
+                return 4;
+            case "Bekantan":
+                return 5;
         }
 
         return 0;
@@ -29,6 +35,12 @@
                 return "Rhino";
             case 2:
                 return "Como";
+            case 3:
+                return "Tapir";
+            case 4:
+                return "Harimau";
+            case 5:
+                return "Bekantan";
         }
 
         return "OrangUtan";

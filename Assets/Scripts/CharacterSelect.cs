@@ -45,22 +45,36 @@ public class CharacterSelect : MonoBehaviour {
 		if (simplegl) {
 			if ((simplegl.IsSwipeLeft (0) || Input.GetKeyDown("left") ) && playerOne > 0) {
 				playerOne--;
+                playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
 			}
 			if ((simplegl.IsSwipeRight (0) || Input.GetKeyDown("right") ) && playerOne < pointerMax - 1) {
 				playerOne++;
+                playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
 			}
-			if (simplegl.IsJump (0) || simplegl.IsSwipeUp (0) || Input.GetKeyDown("space") ) {
+            if (simplegl.IsSwipeDown(0) || (Input.GetKeyDown("down")) && playerOne < pointerMax - 3) {
+                playerOne= playerOne + 3;
+                playerOne = playerOne % characters.Length;
+                pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
+            }
+            if (simplegl.IsSwipeUp(0) || (Input.GetKeyDown("up")) && playerOne >= 3) {
+                playerOne= playerOne - 3;
+                playerOne = playerOne % characters.Length;
+                pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
+            }
+			if (simplegl.IsJump (0) || Input.GetKeyDown("space") ) {
 				P1Selected = true;
 			}
 		} else {
 			if (Input.GetKeyDown("left") && playerOne > 0) {
 				playerOne--;
+                playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
 			}
 			if (Input.GetKeyDown("right") && playerOne < pointerMax - 1) {
 				playerOne++;
+                playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
 			}
 			if (Input.GetKeyDown("space")) {
