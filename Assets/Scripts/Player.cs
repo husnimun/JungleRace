@@ -34,8 +34,6 @@ public class Player : MonoBehaviour {
     }
 
     void Start() {
-        //Debug.Log(Settings.Instance.playerOne);
-        //Debug.Log(Settings.Instance.playerTwo);
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         collider = GetComponent<MeshCollider>();
@@ -69,9 +67,9 @@ public class Player : MonoBehaviour {
 
     public void JumpSkillForward() {
         if (!isBatasAtas) {
-        animator.SetTrigger("Jump");
-        rb.AddRelativeForce(new Vector3(0, 300, 300));
-        audio.Play();
+	        animator.SetTrigger("Jump");
+	        rb.AddRelativeForce(new Vector3(0, 300, 300));
+	        audio.Play();
         }
 	}
 

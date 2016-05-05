@@ -16,6 +16,8 @@ public class StageSelect : MonoBehaviour {
     private string[] stagesName;
     private string[] stagesInfo;
 
+	private GestureListener simplegl;
+
     void Start() {
         stageMax = stages.Length;
         Debug.Log(stageMax);
@@ -29,14 +31,16 @@ public class StageSelect : MonoBehaviour {
         stagesInfo[0] = "Stage ini memiliki tingkat kesulitan yang rendah, dengan jebakan dominan batu besar. Stage ini memiliki panjang lintasan yang dapat diselesaikan dalam 1 menit.";
         stagesInfo[1] = "";
         stagesInfo[2] = "";
+
+		simplegl = GameObject.Find ("Kinect").GetComponent<GestureListener>();
     }
 	void Update () {
-        if (Input.GetKeyDown("space"))
+		if (Input.GetKeyDown("space") || simplegl.IsJump(0))
         {
             SceneManager.LoadScene("Game");    
         }
 
-        if (Input.GetKeyDown("right"))
+		if (Input.GetKeyDown("right") || simplegl.IsSwipeRight (0))
         {
             if (stage < (stageMax - 1))
             {
@@ -48,7 +52,7 @@ public class StageSelect : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("left"))
+		if (Input.GetKeyDown("left") || simplegl.IsSwipeLeft (0))
         {
             if (stage > 0)
             {
