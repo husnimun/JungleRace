@@ -86,29 +86,27 @@ public class CharacterSelect : MonoBehaviour {
 
     void PlayerTwoSelect() {
 		if (simplegl) {
-			if ((simplegl.IsSwipeLeft (1) || Input.GetKeyDown ("left")) && playerTwo > 0) {
+			if ((simplegl.IsSwipeLeft(1) || Input.GetKeyDown("left") ) && playerTwo > 0) {
 				playerTwo--;
-				if (playerTwo == playerOne) {
-					if (playerTwo - 1 >= 0) {
-						playerTwo--;
-					} else {
-						playerTwo++;
-					}
-				}
-				pointerP2.transform.localPosition = characters [playerTwo].transform.localPosition;
+				playerTwo = playerTwo % characters.Length;
+				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
 			}
-			if ((simplegl.IsSwipeRight (1) || Input.GetKeyDown ("right")) && playerTwo < pointerMax - 1) {
+			if ((simplegl.IsSwipeRight(1) || Input.GetKeyDown("right") ) && playerTwo < pointerMax - 1) {
 				playerTwo++;
-				if (playerTwo == playerOne) {
-					if (playerTwo + 1 < pointerMax) {
-						playerTwo++;
-					} else {
-						playerTwo--;
-					}
-				}
-				pointerP2.transform.localPosition = characters [playerTwo].transform.localPosition;
+				playerTwo = playerTwo % characters.Length;
+				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
 			}
-			if (simplegl.IsJump (1) || simplegl.IsSwipeUp (1) || Input.GetKeyDown ("space")) {
+			if (simplegl.IsSwipeDown(1) || (Input.GetKeyDown("down")) && playerTwo < pointerMax - 3) {
+				playerTwo = playerTwo + 3;
+				playerTwo = playerTwo % characters.Length;
+				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
+			}
+			if (simplegl.IsSwipeUp(1) || (Input.GetKeyDown("up")) && playerTwo >= 3) {
+				playerTwo = playerTwo - 3;
+				playerTwo = playerTwo % characters.Length;
+				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
+			}
+			if (simplegl.IsSwipeUp(1) || Input.GetKeyDown ("space")) {
 				P2Selected = true;
 			}
 		} else {
