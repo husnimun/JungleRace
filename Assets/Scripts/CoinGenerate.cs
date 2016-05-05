@@ -5,6 +5,8 @@ public class CoinGenerate : MonoBehaviour {
 
 	public GameObject coin;
 	public GameObject stone;
+	public GameObject grass;
+	public GameObject mud;
 
 	float positionCoinLast;
 	float timeElapsed = 0;
@@ -14,7 +16,7 @@ public class CoinGenerate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		float positionCoinAwake;
-		float eventStone = 0;;
+		float eventStone = 0;
 		for (positionCoinAwake = 4; positionCoinAwake <= 165;) {
 			float posX = generateRandomPosition();
 			for (int i = 0; i < 3; ++i) {
@@ -26,7 +28,7 @@ public class CoinGenerate : MonoBehaviour {
 				if (i == 1 && eventStone % 2 == 0 && positionCoinAwake > 30) {
 					float posStone1 = generateRandomStonePosition (posX);
 					// instantiate stone 1
-					GameObject temp1 = Instantiate(stone) as GameObject;
+					GameObject temp1 = generateRandomObstacle();
 					Vector3 pos1 = temp1.transform.position;
 					temp1.transform.position = new Vector3 (posStone1,pos1.y,positionCoinAwake);	
 				}
@@ -37,7 +39,7 @@ public class CoinGenerate : MonoBehaviour {
 			float posStone2 = generateRandomPosition ();
 
 			// instantiate stone 2
-			GameObject temp2 = Instantiate(stone) as GameObject;
+			GameObject temp2 = generateRandomObstacle();
 			Vector3 pos2 = temp2.transform.position;
 			temp2.transform.position = new Vector3 (posStone2,pos2.y,positionCoinAwake + 5);
 
@@ -65,5 +67,17 @@ public class CoinGenerate : MonoBehaviour {
 			pos2 = generateRandomPosition ();
 		}
 		return pos2;
+	}
+
+	GameObject generateRandomObstacle(){
+		float val = generateRandomPosition ();
+		GameObject temp;
+		if (val == -3)
+			temp = Instantiate (stone) as GameObject;
+		else if (val == 0)
+			temp = Instantiate (grass) as GameObject;
+		else
+			temp = Instantiate (mud) as GameObject;
+		return temp;
 	}
 }

@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
     float forceRight = 150;
 
     public bool isBatasAtas = false;
+	public bool isEffectGrass = false;
+	public bool isEffectMud = false;
 
     void Awake() {
         // Load and setup mesh and materials for player
@@ -74,34 +76,38 @@ public class Player : MonoBehaviour {
 	}
 
 	public void JumpLeft() {
-        if (transform.position.x > -3) {
-            float force;
-            float positionX = transform.position.x;
-            if (positionX <= 0.2f)
-                force = jumpSide(positionX + 3);
-            else
-                force = jumpSide(positionX);
-            animator.SetTrigger("Jump");
-            if (isColliding)
-                rb.AddRelativeForce(new Vector3(-force, forceUp, 0));
-            else
-                rb.AddRelativeForce(new Vector3(-force, 0, 0));
-            audio.Play(); 
-        }
+		if (!isBatasAtas) {
+			if (transform.position.x > -3) {
+				float force;
+				float positionX = transform.position.x;
+				if (positionX <= 0.2f)
+					force = jumpSide(positionX + 3);
+				else
+					force = jumpSide(positionX);
+				animator.SetTrigger("Jump");
+				if (isColliding)
+					rb.AddRelativeForce(new Vector3(-force, forceUp, 0));
+				else
+					rb.AddRelativeForce(new Vector3(-force, 0, 0));
+				audio.Play(); 
+			}
+		}
 	}
 
 	public void JumpRight() {
-        if (transform.position.x < 3){
-            float force;
-            float positionX = transform.position.x;
-            if (positionX >= -0.2f)
-                force = jumpSide(positionX - 3);
-            else
-                force = jumpSide(positionX);
-            animator.SetTrigger("Jump");
-            rb.AddRelativeForce(new Vector3(force, forceUp, 0));
-            audio.Play(); 
-        }
+		if (!isBatasAtas) {
+			if (transform.position.x < 3){
+				float force;
+				float positionX = transform.position.x;
+				if (positionX >= -0.2f)
+					force = jumpSide(positionX - 3);
+				else
+					force = jumpSide(positionX);
+				animator.SetTrigger("Jump");
+				rb.AddRelativeForce(new Vector3(force, forceUp, 0));
+				audio.Play(); 
+			}
+		}
 	}
 
 	public bool isFinish() {

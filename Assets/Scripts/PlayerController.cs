@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour {
 	
 
 	void Update () {
+		Debug.Log("PlayerOne : " + playerOne.isEffectMud);
+		Debug.Log("PlayerTwo : " + playerTwo.isEffectMud);
         if (Input.GetKeyDown("escape"))
         {
             gamePaused = !gamePaused;
@@ -99,22 +101,36 @@ public class PlayerController : MonoBehaviour {
             coinsP2.text = playerTwo.GetCoins().ToString();
 
             if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
-                playerOne.JumpSkillForward();
+				if (!playerOne.isEffectMud)
+					playerOne.JumpSkillForward ();
             }
             if (simplegl.IsJump(1)) {
-                playerTwo.JumpSkillForward();
+				if (!playerTwo.isEffectMud)
+					playerTwo.JumpSkillForward ();
             }
             if (simplegl.IsSwipeRight(0) || Input.GetKeyDown("d")) {
-                playerOne.JumpRight();
+				if (!playerOne.isEffectGrass)
+					playerOne.JumpRight ();
+				else
+					playerOne.JumpLeft ();
             }
             if (simplegl.IsSwipeRight(1)) {
-                playerTwo.JumpRight();
+				if (!playerTwo.isEffectGrass)
+					playerTwo.JumpRight ();
+				else
+					playerTwo.JumpLeft ();
             }
             if (simplegl.IsSwipeLeft(0) || Input.GetKeyDown("a")) {
-                playerOne.JumpLeft();
+				if (!playerOne.isEffectGrass)
+					playerOne.JumpLeft ();
+				else
+					playerOne.JumpRight ();
             }
             if (simplegl.IsSwipeLeft(1)) {
-                playerTwo.JumpLeft();
+				if (!playerTwo.isEffectGrass)
+					playerTwo.JumpLeft ();
+				else
+					playerTwo.JumpRight ();
             }
 
         }
