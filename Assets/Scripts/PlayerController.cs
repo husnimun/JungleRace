@@ -131,7 +131,18 @@ public class PlayerController : MonoBehaviour {
 				else
 					playerTwo.JumpRight ();
             }
-
+			if (Input.GetKeyDown (KeyCode.Alpha1)) {
+				playerOne.thrownItem ();
+			}
+			if (Input.GetKeyDown (KeyCode.Alpha2)) {
+				playerOne.putItem ();
+			}
+			if (Input.GetKeyDown (KeyCode.Alpha3)) {
+				playerTwo.thrownItem ();
+			}
+			if (Input.GetKeyDown (KeyCode.Alpha4)) {
+				playerTwo.putItem ();
+			}
         }
 
         if (playerOne.isFinish() || playerTwo.isFinish())

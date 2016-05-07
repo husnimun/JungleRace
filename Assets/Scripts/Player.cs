@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
     public float forceForward = 100;
     float forceRight = 150;
 
+	public GameObject item;
     public bool isBatasAtas = false;
 	public bool isEffectGrass = false;
 	public bool isEffectMud = false;
@@ -108,6 +109,20 @@ public class Player : MonoBehaviour {
 				audio.Play(); 
 			}
 		}
+	}
+
+	public void thrownItem(){
+		GameObject itemThrown = Instantiate (item) as GameObject;
+		itemThrown.GetComponent<ItemBall> ().isPut = false;
+		Vector3 pos = itemThrown.transform.position;
+		itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z + 2);
+	}
+
+	public void putItem(){
+		GameObject itemThrown = Instantiate (item) as GameObject;
+		itemThrown.GetComponent<ItemBall> ().isPut = true;
+		Vector3 pos = itemThrown.transform.position;
+		itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z - 2);
 	}
 
 	public bool isFinish() {
