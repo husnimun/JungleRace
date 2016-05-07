@@ -62,8 +62,7 @@ public class PlayerController : MonoBehaviour {
 	
 
 	void Update () {
-		Debug.Log("PlayerOne : " + playerOne.isEffectMud);
-		Debug.Log("PlayerTwo : " + playerTwo.isEffectMud);
+		
         if (Input.GetKeyDown("escape"))
         {
             gamePaused = !gamePaused;
