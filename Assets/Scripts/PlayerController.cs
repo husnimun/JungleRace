@@ -132,16 +132,10 @@ public class PlayerController : MonoBehaviour {
 					playerTwo.JumpRight ();
             }
 			if (Input.GetKeyDown (KeyCode.Alpha1)) {
-				playerOne.thrownItem ();
+				playerOne.useSkill ();
 			}
 			if (Input.GetKeyDown (KeyCode.Alpha2)) {
-				playerOne.putItem ();
-			}
-			if (Input.GetKeyDown (KeyCode.Alpha3)) {
-				playerTwo.thrownItem ();
-			}
-			if (Input.GetKeyDown (KeyCode.Alpha4)) {
-				playerTwo.putItem ();
+				playerTwo.useSkill ();
 			}
         }
 

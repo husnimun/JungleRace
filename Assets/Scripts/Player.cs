@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
     new MeshCollider collider;
     MeshRenderer meshRenderer;
 
+	private int skillItem = 0;
+
     private bool isColliding = false;
 	private bool finish = false;
     private int coins = 0;
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour {
     public bool isBatasAtas = false;
 	public bool isEffectGrass = false;
 	public bool isEffectMud = false;
+
+	public int jumlahSkill = 2;
 
     void Awake() {
         // Load and setup mesh and materials for player
@@ -44,6 +48,23 @@ public class Player : MonoBehaviour {
         audio = GetComponent<AudioSource>();
 
     }
+
+	public int getSkill(){
+		return skillItem;
+	}
+
+	public void setSkill(){
+		skillItem = Random.Range (1,jumlahSkill+1);
+	}
+
+	public void useSkill(){
+		if(skillItem == 1){
+			thrownItem ();
+		}else if(skillItem == 2){
+			putItem ();
+		}
+		skillItem = 0;
+	}
 
     void OnCollisionEnter(Collision collision) {
         isColliding = true;

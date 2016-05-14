@@ -7,6 +7,7 @@ public class CoinGenerate : MonoBehaviour {
 	public GameObject stone;
 	public GameObject grass;
 	public GameObject mud;
+	public GameObject collectables;
 
 	float positionCoinLast;
 	float timeElapsed = 0;
@@ -30,7 +31,12 @@ public class CoinGenerate : MonoBehaviour {
 					// instantiate stone 1
 					GameObject temp1 = generateRandomObstacle();
 					Vector3 pos1 = temp1.transform.position;
-					temp1.transform.position = new Vector3 (posStone1,pos1.y,positionCoinAwake);	
+					temp1.transform.position = new Vector3 (posStone1,pos1.y,positionCoinAwake);
+					if (temp1.tag == "Stone") {
+						GameObject collectable1 = Instantiate (collectables) as GameObject;
+						pos1 = temp1.transform.position;
+						collectable1.transform.position = new Vector3 (pos1.x, pos1.y + 3, pos1.z);
+					}
 				}
 				positionCoinAwake += 2;
 				if (positionCoinAwake > 165)
@@ -42,7 +48,11 @@ public class CoinGenerate : MonoBehaviour {
 			GameObject temp2 = generateRandomObstacle();
 			Vector3 pos2 = temp2.transform.position;
 			temp2.transform.position = new Vector3 (posStone2,pos2.y,positionCoinAwake + 5);
-
+			if (temp2.tag == "Stone") {
+				GameObject collectable1 = Instantiate (collectables) as GameObject;
+				pos2 = temp2.transform.position;
+				collectable1.transform.position = new Vector3 (pos2.x, pos2.y + 3, pos2.z);
+			}
 			eventStone++;
 			positionCoinAwake += 10;
 		}
