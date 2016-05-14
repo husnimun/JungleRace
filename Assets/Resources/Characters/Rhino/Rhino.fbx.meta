@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b1aea599104e98b40abbb84a3f4c9cdc
-timeCreated: 1460019394
+guid: 4022e187a2a96494a85e15b54ce2baaa
+timeCreated: 1463238946
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: rhino
+    4300000: rhino_1
   materials:
     importMaterials: 1
     materialName: 0
