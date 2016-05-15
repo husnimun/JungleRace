@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     public bool isBatasAtas = false;
 	public bool isEffectGrass = false;
 	public bool isEffectMud = false;
+	public bool isEffectItem = false;
 
 	public int jumlahSkill = 2;
 
@@ -82,7 +83,7 @@ public class Player : MonoBehaviour {
 	}
 
     public void JumpForward(){
-        if (isColliding) {
+		if (isColliding && !isEffectItem) {
             animator.SetTrigger("Jump");
             rb.AddRelativeForce(new Vector3(0, 200, 75));
             audio.PlayOneShot(audioclip, 1.0f);
@@ -90,7 +91,7 @@ public class Player : MonoBehaviour {
     }
 
     public void JumpSkillForward() {
-        if (!isBatasAtas) {
+		if (!isBatasAtas && !isEffectItem) {
 	        animator.SetTrigger("Jump");
 	        rb.AddRelativeForce(new Vector3(0, 300, 300));
 	        audio.Play();
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void JumpLeft() {
-		if (!isBatasAtas) {
+		if (!isBatasAtas && !isEffectItem) {
 			if (transform.position.x > -3) {
 				float force;
 				float positionX = transform.position.x;
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void JumpRight() {
-		if (!isBatasAtas) {
+		if (!isBatasAtas && !isEffectItem) {
 			if (transform.position.x < 3){
 				float force;
 				float positionX = transform.position.x;
@@ -133,17 +134,21 @@ public class Player : MonoBehaviour {
 	}
 
 	public void thrownItem(){
-		GameObject itemThrown = Instantiate (item) as GameObject;
-		itemThrown.GetComponent<ItemBall> ().isPut = false;
-		Vector3 pos = itemThrown.transform.position;
-		itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z + 2);
+		if (!isEffectItem) {
+			GameObject itemThrown = Instantiate (item) as GameObject;
+			itemThrown.GetComponent<ItemBall> ().isPut = false;
+			Vector3 pos = itemThrown.transform.position;
+			itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z + 2);
+		}
 	}
 
 	public void putItem(){
-		GameObject itemThrown = Instantiate (item) as GameObject;
-		itemThrown.GetComponent<ItemBall> ().isPut = true;
-		Vector3 pos = itemThrown.transform.position;
-		itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z - 2);
+		if (!isEffectItem) {
+			GameObject itemThrown = Instantiate (item) as GameObject;
+			itemThrown.GetComponent<ItemBall> ().isPut = true;
+			Vector3 pos = itemThrown.transform.position;
+			itemThrown.transform.position = new Vector3 (rb.transform.position.x, pos.y, rb.transform.position.z - 2);
+		}
 	}
 
 	public bool isFinish() {
