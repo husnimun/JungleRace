@@ -12,7 +12,7 @@ public class StageSelect : MonoBehaviour {
     public Sprite[] stages;
 
     private int stage = 0;
-    private int stageMax = 3;
+    private int stageMax = 5;
     private string[] stagesName;
     private string[] stagesInfo;
 
@@ -24,20 +24,31 @@ public class StageSelect : MonoBehaviour {
 
         stagesName = new string[stages.Length];
         stagesName[0] = "Hutan";
-        stagesName[1] = "Padang Tandus";
-        stagesName[2] = "Rawa";
+        stagesName[1] = "Salju";
+        stagesName[2] = "Padang Tandus";
+        stagesName[3] = "Rawa";
+        stagesName[4] = "Kanopi";
 
         stagesInfo = new string[stages.Length];
         stagesInfo[0] = "Stage ini memiliki tingkat kesulitan yang rendah, dengan jebakan dominan batu besar. Stage ini memiliki panjang lintasan yang dapat diselesaikan dalam 1 menit.";
         stagesInfo[1] = "";
         stagesInfo[2] = "";
+        stagesInfo[3] = "";
+        stagesInfo[4] = "";
 
 		simplegl = GameObject.Find ("Kinect").GetComponent<GestureListener>();
     }
 	void Update () {
 		if (Input.GetKeyDown("space") || simplegl.IsJump(0))
         {
-            SceneManager.LoadScene("Game");    
+            if (stage == 0)
+            {
+                SceneManager.LoadScene("Game");
+            }
+            else if (stage == 1)
+            {
+                SceneManager.LoadScene("Salju");
+            }
         }
 
 		if (Input.GetKeyDown("right") || simplegl.IsSwipeRight (0))
@@ -45,7 +56,7 @@ public class StageSelect : MonoBehaviour {
             if (stage < (stageMax - 1))
             {
                 stage++;
-                pointer.transform.localPosition += new Vector3(180, 0, 0);
+                pointer.transform.localPosition += new Vector3(130, 0, 0);
                 stageName.text = stagesName[stage];
                 stageInfo.text = stagesInfo[stage];
                 thumbnail.gameObject.GetComponent<Image>().sprite = stages[stage];
@@ -57,7 +68,7 @@ public class StageSelect : MonoBehaviour {
             if (stage > 0)
             {
                 stage--;
-                pointer.transform.localPosition += new Vector3(-180, 0, 0);
+                pointer.transform.localPosition += new Vector3(-130, 0, 0);
                 stageName.text = stagesName[stage];
                 stageInfo.text = stagesInfo[stage];
                 thumbnail.gameObject.GetComponent<Image>().sprite = stages[stage];
