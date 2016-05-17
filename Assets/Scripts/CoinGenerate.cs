@@ -18,7 +18,7 @@ public class CoinGenerate : MonoBehaviour {
 	void Start () {
 		float positionCoinAwake;
 		float eventStone = 0;
-		for (positionCoinAwake = 4; positionCoinAwake <= 165;) {
+		for (positionCoinAwake = 4; positionCoinAwake <= 150;) {
 			float posX = generateRandomPosition();
 			for (int i = 0; i < 3; ++i) {
 				if (positionCoinAwake == 4 || positionCoinAwake == 8 || positionCoinAwake == 12)
