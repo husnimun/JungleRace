@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update () {
 		
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             gamePaused = !gamePaused;
             pauseMenu.enabled = gamePaused;
@@ -131,11 +131,11 @@ public class PlayerController : MonoBehaviour {
 				else
 					playerTwo.JumpRight ();
             }
-			if (Input.GetKeyDown (KeyCode.Alpha1)) {
-				playerOne.useSkill ();
+            if (Input.GetKeyDown (KeyCode.Alpha1) || simplegl.IsSwipeUp(0)) {
+				playerOne.useSkill();
 			}
-			if (Input.GetKeyDown (KeyCode.Alpha2)) {
-				playerTwo.useSkill ();
+            if (Input.GetKeyDown (KeyCode.Alpha2) || simplegl.IsSwipeUp(1)) {
+				playerTwo.useSkill();
 			}
         }
 

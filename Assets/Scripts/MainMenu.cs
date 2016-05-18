@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     void OnLevelWasLoaded(int level) {
-        if (level == 3)
+        if (level == 3 || level == 4)
         {
             Destroy(audio.gameObject);
         }
@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void PlayBtnPress() {
-        SceneManager.LoadScene("CharacterSelect");
+        SceneManager.LoadScene("Story");
     }
 
     public void CreditBtnPress() {

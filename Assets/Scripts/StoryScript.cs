@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StoryScript : MonoBehaviour {
 
-    public GameObject image;
+    public MovieTexture movie;
 
 	void Start () {
-	
+        GetComponent<RawImage>().texture = movie as MovieTexture;
+        movie.Play();
 	}
 	
 	
 	void FixedUpdate () {
-        image.transform.Translate(0, 2, 0);    
+        if(!movie.isPlaying){
+            Debug.Log("Movie is done");
+            SceneManager.LoadScene("CharacterSelect");
+        }
 	}
 }
