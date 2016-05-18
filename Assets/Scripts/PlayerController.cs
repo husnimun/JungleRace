@@ -131,10 +131,10 @@ public class PlayerController : MonoBehaviour {
 				else
 					playerTwo.JumpRight ();
             }
-            if (Input.GetKeyDown (KeyCode.Alpha1) || simplegl.IsSwipeUp(0)) {
+            if (Input.GetKeyDown (KeyCode.Alpha1) || simplegl.IsSwipeDown(0)) {
 				playerOne.useSkill();
 			}
-            if (Input.GetKeyDown (KeyCode.Alpha2) || simplegl.IsSwipeUp(1)) {
+            if (Input.GetKeyDown (KeyCode.Alpha2) || simplegl.IsSwipeDown(1)) {
 				playerTwo.useSkill();
 			}
         }

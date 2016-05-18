@@ -6,7 +6,6 @@ public class ItemBall : MonoBehaviour {
 	Rigidbody rb;
 	GameObject player;
 	GameObject effect;
-	private int rotationSpeed = 900;
 	public bool isPut = false;
 	public GameObject effectIcon;
 	bool isEffect = false;
@@ -17,15 +16,17 @@ public class ItemBall : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX;
+        if (!isPut)
+            rb.AddForce(transform.forward * 20, ForceMode.Impulse);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isPut) {
+		/*if (!isPut) {
 			float rotation = rotationSpeed;
 			rotation *= Time.deltaTime;
 			rb.AddRelativeTorque (Vector3.right * rotation);
-		}
+		}*/
 
 		time += Time.deltaTime;
 		if (isEffect) {

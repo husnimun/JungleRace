@@ -18,5 +18,10 @@ public class StoryScript : MonoBehaviour {
             Debug.Log("Movie is done");
             SceneManager.LoadScene("CharacterSelect");
         }
+
+        if (Input.GetKeyDown("space"))
+        {
+            SceneManager.LoadScene("CharacterSelect");
+        }
 	}
 }
