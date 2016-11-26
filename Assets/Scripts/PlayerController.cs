@@ -69,6 +69,11 @@ public class PlayerController : MonoBehaviour {
             pauseMenu.enabled = gamePaused;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            gamePaused = !gamePaused;
+            pauseMenu.enabled = gamePaused;
+        }
+
 
         if (!gameStarted)
         {
