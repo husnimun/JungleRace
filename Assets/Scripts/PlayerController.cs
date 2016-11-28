@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 
 		//Instantiate player object
-		simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
+//		simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
 
         // Instantiate player object
         playerOneObj = Instantiate(charactersPrefab[Settings.Instance.CharacterCode(Settings.Instance.playerOne)]);
@@ -98,44 +98,47 @@ public class PlayerController : MonoBehaviour {
             coinsP1.text = playerOne.GetCoins().ToString();
             coinsP2.text = playerTwo.GetCoins().ToString();
 
-			if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
-				if (!playerOne.isEffectMud)
-					playerOne.JumpSkillForward ();
-            }
-            if (simplegl.IsJump(1)) {
-				if (!playerTwo.isEffectMud)
-					playerTwo.JumpSkillForward ();
-            }
-            if (simplegl.IsSwipeRight(0) || Input.GetKeyDown("d")) {
-				if (!playerOne.isEffectGrass)
-					playerOne.JumpRight ();
-				else
-					playerOne.JumpLeft ();
-            }
-            if (simplegl.IsSwipeRight(1)) {
-				if (!playerTwo.isEffectGrass)
-					playerTwo.JumpRight ();
-				else
-					playerTwo.JumpLeft ();
-            }
-            if (simplegl.IsSwipeLeft(0) || Input.GetKeyDown("a")) {
-				if (!playerOne.isEffectGrass)
-					playerOne.JumpLeft ();
-				else
-					playerOne.JumpRight ();
-            }
-            if (simplegl.IsSwipeLeft(1)) {
-				if (!playerTwo.isEffectGrass)
-					playerTwo.JumpLeft ();
-				else
-					playerTwo.JumpRight ();
-            }
-            if (Input.GetKeyDown (KeyCode.Alpha1) || simplegl.IsSwipeDown(0)) {
-				playerOne.useSkill();
-			}
-            if (Input.GetKeyDown (KeyCode.Alpha2) || simplegl.IsSwipeDown(1)) {
-				playerTwo.useSkill();
-			}
+			buttonListener ("P1");
+			buttonListener ("P2");
+
+//			if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
+//				if (!playerOne.isEffectMud)
+//					playerOne.JumpSkillForward ();
+//            }
+//            if (simplegl.IsJump(1)) {
+//				if (!playerTwo.isEffectMud)
+//					playerTwo.JumpSkillForward ();
+//            }
+//            if (simplegl.IsSwipeRight(0) || Input.GetKeyDown("d")) {
+//				if (!playerOne.isEffectGrass)
+//					playerOne.JumpRight ();
+//				else
+//					playerOne.JumpLeft ();
+//            }
+//            if (simplegl.IsSwipeRight(1)) {
+//				if (!playerTwo.isEffectGrass)
+//					playerTwo.JumpRight ();
+//				else
+//					playerTwo.JumpLeft ();
+//            }
+//            if (simplegl.IsSwipeLeft(0) || Input.GetKeyDown("a")) {
+//				if (!playerOne.isEffectGrass)
+//					playerOne.JumpLeft ();
+//				else
+//					playerOne.JumpRight ();
+//            }
+//            if (simplegl.IsSwipeLeft(1)) {
+//				if (!playerTwo.isEffectGrass)
+//					playerTwo.JumpLeft ();
+//				else
+//					playerTwo.JumpRight ();
+//            }
+//            if (Input.GetKeyDown (KeyCode.Alpha1) || simplegl.IsSwipeDown(0)) {
+//				playerOne.useSkill();
+//			}
+//            if (Input.GetKeyDown (KeyCode.Alpha2) || simplegl.IsSwipeDown(1)) {
+//				playerTwo.useSkill();
+//			}
         }
 
 		// End Game
@@ -174,19 +177,46 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-	public void buttonListener(){
-		
-		if(Input.GetButtonDown("360_AButton")){
+	public void buttonListener(System.String player){
+		Player target = playerOneObj.GetComponent<Player>();
+		int kinectTarget = 0;
+		if(player.Equals("P1")){
+			target = playerOneObj.GetComponent<Player>();
+			kinectTarget = 0;
+		}else if(player.Equals("P2")){
+			target = playerTwoObj.GetComponent<Player>();
+			kinectTarget = 1;
+		}
+		if(/*simplegl.IsJump(kinectTarget)||*/Input.GetButtonDown(player+"_AButton")||Input.GetKeyDown("space")){
+			target.JumpSkillForward ();
+		}
+		if(Input.GetButtonDown(player+"_BButton")||Input.GetKeyDown("c")){
+			target.useSkill ();
+		}
+		if(Input.GetButtonDown(player+"_XButton")){
+
+		}
+		if(Input.GetButtonDown(player+"_YButton")){
+
+		}
+		if(Input.GetButtonDown(player+"_LeftBumper")){
+
+		}
+		if(Input.GetButtonDown(player+"_RightBumper")){
+
+		}
+		if(Input.GetButtonDown(player+"_StartButton")){
+
+		}
+		if (Input.GetAxis (player+"_Horizontal") > 0||Input.GetKeyDown("d")) {
+			target.JumpRight ();
+		} else if (Input.GetAxis(player+"_Horizontal") < 0||Input.GetKeyDown("a")) {
+			target.JumpLeft ();
+		}
+		if(Input.GetAxis(player+"_Vertical") > 0||Input.GetKeyDown("w")){
 			
-		}
-		if(Input.GetButtonDown("360_BButton")){
-
-		}
-		if(Input.GetButtonDown("360_XButton")){
-
-		}
-		if(Input.GetButtonDown("360_YButton")){
-
+		}else if(Input.GetAxis(player+"_Vertical") < 0||Input.GetKeyDown("s")){
+			
 		}
 	}
 
