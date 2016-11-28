@@ -15,6 +15,7 @@ public class StageSelect : MonoBehaviour {
     private int stageMax = 5;
     private string[] stagesName;
     private string[] stagesInfo;
+    private bool P1AxisPressed = false;
 
 	private GestureListener simplegl;
 
@@ -39,7 +40,7 @@ public class StageSelect : MonoBehaviour {
 		simplegl = GameObject.Find ("Kinect").GetComponent<GestureListener>();
     }
 	void Update () {
-		if (Input.GetKeyDown("space") || simplegl.IsJump(0))
+        if (Input.GetKeyDown("space") || simplegl.IsJump(0) || Input.GetButtonDown("P1_AButton"))
         {
             if (stage == 0)
             {
@@ -51,7 +52,7 @@ public class StageSelect : MonoBehaviour {
             }
         }
 
-		if (Input.GetKeyDown("right") || simplegl.IsSwipeRight (0))
+        if (Input.GetKeyDown("right") || ((Input.GetAxis("P1_Horizontal") > 0) && !P1AxisPressed))
         {
             if (stage < (stageMax - 1))
             {
@@ -60,10 +61,11 @@ public class StageSelect : MonoBehaviour {
                 stageName.text = stagesName[stage];
                 stageInfo.text = stagesInfo[stage];
                 thumbnail.gameObject.GetComponent<Image>().sprite = stages[stage];
+                P1AxisPressed = true;
             }
         }
 
-		if (Input.GetKeyDown("left") || simplegl.IsSwipeLeft (0))
+        if (Input.GetKeyDown("left") || ((Input.GetAxis("P1_Horizontal") < 0) && !P1AxisPressed))
         {
             if (stage > 0)
             {
@@ -72,7 +74,17 @@ public class StageSelect : MonoBehaviour {
                 stageName.text = stagesName[stage];
                 stageInfo.text = stagesInfo[stage];
                 thumbnail.gameObject.GetComponent<Image>().sprite = stages[stage];
+                P1AxisPressed = true;
             }
+        }
+
+        if (Input.GetAxis("P1_Horizontal") == 0)
+        {
+            P1AxisPressed = false;
+        }
+
+        if (Input.GetButtonDown("P1_BButton")) {
+            SceneManager.LoadScene("CharacterSelect");
         }
     }
 }
