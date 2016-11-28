@@ -68,13 +68,7 @@ public class PlayerController : MonoBehaviour {
             gamePaused = !gamePaused;
             pauseMenu.enabled = gamePaused;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            gamePaused = !gamePaused;
-            pauseMenu.enabled = gamePaused;
-        }
-
-
+		// Initialized Game
         if (!gameStarted)
         {
             // Print count down text
@@ -93,7 +87,7 @@ public class PlayerController : MonoBehaviour {
             }    
         }
 
-
+		// Button Listener
         if (gameStarted && !finish)
         {
             timer += Time.deltaTime;
@@ -104,7 +98,7 @@ public class PlayerController : MonoBehaviour {
             coinsP1.text = playerOne.GetCoins().ToString();
             coinsP2.text = playerTwo.GetCoins().ToString();
 
-            if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
+			if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
 				if (!playerOne.isEffectMud)
 					playerOne.JumpSkillForward ();
             }
@@ -144,6 +138,7 @@ public class PlayerController : MonoBehaviour {
 			}
         }
 
+		// End Game
         if (playerOne.isFinish() || playerTwo.isFinish())
         {
             finish = true;
@@ -178,6 +173,22 @@ public class PlayerController : MonoBehaviour {
             StopCoroutine(defaultJump());
         }
     }
+
+	public void buttonListener(){
+		
+		if(Input.GetButtonDown("360_AButton")){
+			
+		}
+		if(Input.GetButtonDown("360_BButton")){
+
+		}
+		if(Input.GetButtonDown("360_XButton")){
+
+		}
+		if(Input.GetButtonDown("360_YButton")){
+
+		}
+	}
 
     IEnumerator defaultJump(){
         isLoncatKecil = false;
