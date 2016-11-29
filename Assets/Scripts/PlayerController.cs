@@ -85,6 +85,11 @@ public class PlayerController : MonoBehaviour {
             }    
         }
 
+        if (gamePaused)
+        {
+            
+        }
+
 		// Button Listener
         if (gameStarted && !finish)
         {
