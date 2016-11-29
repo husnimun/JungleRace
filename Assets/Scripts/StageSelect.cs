@@ -52,7 +52,7 @@ public class StageSelect : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("right") || ((Input.GetAxis("P1_Horizontal") > 0) && !P1AxisPressed))
+        if (simplegl.IsSwipeRight(0) || Input.GetKeyDown("right") || ((Input.GetAxis("P1_Horizontal") > 0) && !P1AxisPressed))
         {
             if (stage < (stageMax - 1))
             {
@@ -65,7 +65,7 @@ public class StageSelect : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown("left") || ((Input.GetAxis("P1_Horizontal") < 0) && !P1AxisPressed))
+        if (simplegl.IsSwipeLeft(0) || Input.GetKeyDown("left") || ((Input.GetAxis("P1_Horizontal") < 0) && !P1AxisPressed))
         {
             if (stage > 0)
             {

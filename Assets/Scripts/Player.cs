@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 	private int skillItem = 0;
 
     private bool isColliding = false;
+    private bool isJump = false;
 	private bool finish = false;
     private int coins = 0;
 
@@ -74,11 +75,12 @@ public class Player : MonoBehaviour {
 		}else if(skillItem == 2){
 			putItem ();
 		}
-		skillItem = 0;
+		skillItem = 1;
 	}
 
     void OnCollisionEnter(Collision collision) {
         isColliding = true;
+        isJump = false;
     }
 
     void OnCollisionExit(Collision collision) {
@@ -92,19 +94,29 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-    public void JumpForward(){
-		if (isColliding && !isEffectItem) {
+    public void JumpDefault(){
+        if (isColliding && !isEffectItem) {
             animator.SetTrigger("Jump");
-            rb.AddRelativeForce(new Vector3(0, 200, 75));
+            rb.AddRelativeForce(new Vector3(0, 200, 0));
             audio.PlayOneShot(audioclip, 1.0f);
         }
     }
 
-    public void JumpSkillForward() {
-		if (!isBatasAtas && !isEffectItem) {
+    public void JumpForward(float i){
+		if (!isJump && !isEffectItem) {
+            animator.SetTrigger("Jump");
+            rb.AddRelativeForce(new Vector3(0, 200, 400*i));
+            audio.Play();
+            isJump = true;
+        }
+    }
+
+    public void JumpSkillForward(float i) {
+		if (!isJump && !isEffectItem) {
 	        animator.SetTrigger("Jump");
-	        rb.AddRelativeForce(new Vector3(0, 300, 300));
+	        rb.AddRelativeForce(new Vector3(0, 350, 200*i));
 	        audio.Play();
+            isJump = true;
         }
 	}
 

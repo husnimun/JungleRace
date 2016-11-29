@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     private bool gameStarted = false;
     private bool gamePaused = false;
     bool isLoncatKecil = true;
+    bool isHighJump = false;
 
     bool finish = false;
 
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 
 		//Instantiate player object
-//		simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
+		simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
 
         // Instantiate player object
         playerOneObj = Instantiate(charactersPrefab[Settings.Instance.CharacterCode(Settings.Instance.playerOne)]);
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update () {
 		
-        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Start"))
+        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("P1_StartButton"))
         {
             gamePaused = !gamePaused;
             pauseMenu.enabled = gamePaused;
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 
         if (gamePaused)
         {
-			if (Input.GetButtonDown ("Submit")) {
+			if (Input.GetButtonDown ("P1_AButton")) {
 				SceneManager.LoadScene ("MainMenu");
 			}
         }
@@ -192,9 +193,12 @@ public class PlayerController : MonoBehaviour {
 			target = playerTwoObj.GetComponent<Player>();
 			kinectTarget = 1;
 		}
-		if(/*simplegl.IsJump(kinectTarget)||*/Input.GetButtonDown(player+"_AButton")||Input.GetKeyDown("space")){
-			target.JumpSkillForward ();
+		if(Input.GetButtonDown(player+"_AButton")){
+            isHighJump = true;
 		}
+        if(Input.GetButtonUp(player+"_AButton")){
+            isHighJump = false;
+        }
 		if(Input.GetButtonDown(player+"_BButton")||Input.GetKeyDown("c")){
 			target.useSkill ();
 		}
@@ -207,16 +211,44 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetButtonDown(player+"_LeftBumper")){
 
 		}
-		if(Input.GetButtonDown(player+"_RightBumper")){
-
+        if(simplegl.IsJump(kinectTarget)){
+            float i = 1.0f;
+            if (target.isEffectMud){
+                i = 0.5f;
+            }else{
+                i = 1.0f;
+            }
+            if (isHighJump)
+            {
+                target.JumpSkillForward(i); 
+            }
+            else
+            {
+                target.JumpForward(i);
+            }
 		}
 		if(Input.GetButtonDown(player+"_StartButton")){
 
 		}
-		if (Input.GetAxis (player+"_Horizontal") > 0||Input.GetKeyDown("d")) {
-			target.JumpRight ();
-		} else if (Input.GetAxis(player+"_Horizontal") < 0||Input.GetKeyDown("a")) {
-			target.JumpLeft ();
+        if (simplegl.IsSwipeRight(kinectTarget)||Input.GetAxis (player+"_Horizontal") > 0||Input.GetKeyDown("d")) {
+            if (!target.isEffectGrass)
+            {
+                target.JumpRight();
+            }
+            else
+            {
+                target.JumpLeft();
+            }
+			
+        } else if (simplegl.IsSwipeLeft(kinectTarget)||Input.GetAxis(player+"_Horizontal") < 0||Input.GetKeyDown("a")) {
+            if (!target.isEffectGrass)
+            {
+                target.JumpLeft();
+            }
+            else
+            {
+                target.JumpRight();
+            }
 		}
 		if(Input.GetAxis(player+"_Vertical") > 0||Input.GetKeyDown("w")){
 			
@@ -227,8 +259,8 @@ public class PlayerController : MonoBehaviour {
 
     IEnumerator defaultJump(){
         isLoncatKecil = false;
-        playerOne.JumpForward();
-        playerTwo.JumpForward();
+        playerOne.JumpDefault();
+        playerTwo.JumpDefault();
         yield return new WaitForSeconds(1f);
         isLoncatKecil = true;
     }

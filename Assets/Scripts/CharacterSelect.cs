@@ -19,6 +19,7 @@ public class CharacterSelect : MonoBehaviour {
     private bool P2AxisPressed = false;
     private int pointerMax;
 
+
 	private GestureListener simplegl;
 
 	void Start () {
@@ -27,8 +28,8 @@ public class CharacterSelect : MonoBehaviour {
         HideUI(pointerP2);
         pointerMax = characters.Length;
 
-		simplegl = GameObject.Find ("Kinect").GetComponent<GestureListener>();
-	}
+        simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
+    }
 
     void Update() {
         if (Input.GetButtonDown("P1_BButton")) {
@@ -49,13 +50,13 @@ public class CharacterSelect : MonoBehaviour {
 
 	void PlayerOneSelect() {
 		if (simplegl) {
-            if ((Input.GetKeyDown("left") || ((Input.GetAxis("P1_Horizontal") < 0) && (!P1AxisPressed)) ) && playerOne > 0) {
+            if ((simplegl.IsSwipeRight(0) || Input.GetKeyDown("left") || ((Input.GetAxis("P1_Horizontal") < 0) && (!P1AxisPressed)) ) && playerOne > 0) {
 				playerOne--;
                 playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
                 P1AxisPressed = true;
 			}
-            if ((Input.GetKeyDown("right") || ((Input.GetAxis("P1_Horizontal") > 0) && (!P1AxisPressed) )) && playerOne < pointerMax - 1) {
+            if ((simplegl.IsSwipeRight(0) || Input.GetKeyDown("right") || ((Input.GetAxis("P1_Horizontal") > 0) && (!P1AxisPressed) )) && playerOne < pointerMax - 1) {
 				playerOne++;
                 playerOne = playerOne % characters.Length;
 				pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
@@ -73,7 +74,7 @@ public class CharacterSelect : MonoBehaviour {
                 pointerP1.transform.localPosition = characters [playerOne].transform.localPosition;
                 P1AxisPressed = true;
             }
-            if (Input.GetButtonDown("P1_AButton")) {
+            if (simplegl.IsJump(0) || Input.GetButtonDown("P1_AButton")) {
 				P1Selected = true;
 			}
             if (Input.GetAxis("P1_Horizontal") == 0) {
@@ -100,13 +101,13 @@ public class CharacterSelect : MonoBehaviour {
 
     void PlayerTwoSelect() {
 		if (simplegl) {
-            if ((Input.GetKeyDown("left") || ((Input.GetAxis("P2_Horizontal") < 0) && (!P2AxisPressed))) && playerTwo > 0) {
+            if ((simplegl.IsSwipeLeft(1) || Input.GetKeyDown("left") || ((Input.GetAxis("P2_Horizontal") < 0) && (!P2AxisPressed))) && playerTwo > 0) {
 				playerTwo--;
 				playerTwo = playerTwo % characters.Length;
 				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
                 P2AxisPressed = true;
 			}
-            if ((Input.GetKeyDown("right") || ((Input.GetAxis("P2_Horizontal") > 0) && (!P2AxisPressed))) && playerTwo < pointerMax - 1) {
+            if ((simplegl.IsSwipeRight(1) || Input.GetKeyDown("right") || ((Input.GetAxis("P2_Horizontal") > 0) && (!P2AxisPressed))) && playerTwo < pointerMax - 1) {
 				playerTwo++;
 				playerTwo = playerTwo % characters.Length;
 				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
@@ -124,7 +125,7 @@ public class CharacterSelect : MonoBehaviour {
 				pointerP2.transform.localPosition = characters[playerTwo].transform.localPosition;
                 P2AxisPressed = true;
 			}
-            if (Input.GetButtonDown("P2_AButton")) {
+            if (simplegl.IsJump(1) || Input.GetButtonDown("P2_AButton")) {
 				P2Selected = true;
 			}
             if (Input.GetAxis("P2_Horizontal") == 0) {
