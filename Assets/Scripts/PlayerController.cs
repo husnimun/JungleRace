@@ -87,7 +87,9 @@ public class PlayerController : MonoBehaviour {
 
         if (gamePaused)
         {
-            
+			if (Input.GetButtonDown ("Submit")) {
+				SceneManager.LoadScene ("MainMenu");
+			}
         }
 
 		// Button Listener
