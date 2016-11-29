@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
     AudioSource audio;
@@ -13,7 +12,7 @@ public class MainMenu : MonoBehaviour {
     }
 
 	void Update() {
-        if (EditorSceneManager.GetActiveScene().name == "MainMenu" ) {
+        if (SceneManager.GetActiveScene().name == "MainMenu" ) {
             if (Input.GetButtonDown("P1_AButton")) {
                 SceneManager.LoadScene("CharacterSelect");  
             }

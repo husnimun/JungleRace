@@ -56,14 +56,12 @@ public class PlayerController : MonoBehaviour {
 
         pauseMenu.gameObject.SetActive(true);
         pauseMenu.enabled = false;
-
-
     }
 	
 
 	void Update () {
 		
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Start"))
         {
             gamePaused = !gamePaused;
             pauseMenu.enabled = gamePaused;
