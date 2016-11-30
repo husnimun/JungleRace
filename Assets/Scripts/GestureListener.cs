@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface {
+
+
+    public Text P1;
+    public Text P2;
+
 	private int[] jump, swipeleft, swiperight, swipeup, swipedown, raiseright, raiseleft;
 
 	void Awake(){
@@ -81,6 +88,17 @@ public class GestureListener : MonoBehaviour, KinectGestures.GestureListenerInte
 		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeDown);
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
+
+        if (userIndex == 0)
+        {
+            P1.text = "Player 1 Detected!";
+        }
+
+        if (userIndex == 1)
+        {
+            P2.text = "Player 2 Detected!";
+            StartCoroutine(GoToCharacterSelect());
+        }
 	}
 
 	public void UserLost(uint userId, int userIndex)
@@ -118,5 +136,11 @@ public class GestureListener : MonoBehaviour, KinectGestures.GestureListenerInte
 		
 		return true;
 	}
+
+
+    IEnumerator GoToCharacterSelect() {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("CharacterSelect");
+    }
 
 }

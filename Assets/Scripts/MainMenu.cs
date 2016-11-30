@@ -9,12 +9,18 @@ public class MainMenu : MonoBehaviour {
     void Start() {
         audio = GetComponent<AudioSource>();
         DontDestroyOnLoad(audio);
+
+        GameObject kinect = GameObject.Find("Kinect");
+        if (kinect)
+        {
+            Destroy(kinect.gameObject);
+        }
     }
 
 	void Update() {
         if (SceneManager.GetActiveScene().name == "MainMenu" ) {
             if (Input.GetButtonDown("P1_AButton")) {
-                SceneManager.LoadScene("CharacterSelect");  
+                SceneManager.LoadScene("DetectPlayer");  
             }
         }
 	}
@@ -22,12 +28,15 @@ public class MainMenu : MonoBehaviour {
     void OnLevelWasLoaded(int level) {
         if (level == 3 || level == 4 || level == 0)
         {
-            Destroy(audio.gameObject);
+            if (audio)
+            {
+                Destroy(audio.gameObject);
+            }
         }
     }
 
     public void PlayBtnPress() {
-        SceneManager.LoadScene("CharacterSelect");
+        SceneManager.LoadScene("DetectPlayer");
     }
 
     public void CreditBtnPress() {
