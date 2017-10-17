@@ -4,15 +4,19 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
     GameObject player;
+	int playerID;
     private Vector3 offset;
     private bool isFinished = false;
 	
 	void Start() {
-        offset = transform.position - player.transform.position;
+		if (player != null) {
+			offset = transform.position - player.transform.position;
+		}
     }
 
-    public void SetPlayer(GameObject player) {
+	public void SetPlayer(GameObject player, int playerID) {
         this.player = player;
+		this.playerID = playerID;
     }
 
      Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angle) {
@@ -26,7 +30,23 @@ public class CameraController : MonoBehaviour {
         if (!isFinished)
         {
             Vector3 playerPos = player.transform.position;
-            transform.position = new Vector3(playerPos.x, 0, playerPos.z) + offset;   
+			if (offset == null) {
+				if (player != null) {
+					offset = transform.position - player.transform.position;
+				}
+			} else {
+				switch(playerID){
+				case 1:
+					transform.position = Vector3.Lerp (this.transform.position, new Vector3(-3, 0, playerPos.z) + offset, 0.1f);
+					break;
+				case 2:
+					transform.position = Vector3.Lerp (this.transform.position, new Vector3(0, 0, playerPos.z) + offset, 0.1f);
+					break;
+				case 3:
+					transform.position = Vector3.Lerp (this.transform.position, new Vector3(3, 0, playerPos.z) + offset, 0.1f);
+					break;
+				}
+			}
         }
     }
 

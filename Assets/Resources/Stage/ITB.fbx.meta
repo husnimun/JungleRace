@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 7c2e4dd4ac157254f8ba8eb712a7629b
+timeCreated: 1508210244
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: aspal
+    100002: CINEMA_4D_Editor
+    100004: intel
+    100006: //RootNode
+    100008: ITB
+    100010: jembatan
+    100012: jembatan_1
+    100014: jembatan_1_2
+    100016: jembatan_2
+    100018: labtek
+    100020: labtek_1
+    100022: labtek_1_2
+    100024: labtek_1_3
+    100026: labtek_2
+    100028: labtek_3
+    100030: pohon
+    100032: pohon_1
+    100034: pohon_2
+    100036: pohon_2_2
+    100038: pohon_4
+    100040: pohon_segitiga
+    100042: pohon_segitiga_1
+    100044: pohon_segitiga_2
+    100046: pohon_segitiga_2_2
+    100048: pohon_segitiga_3
+    100050: pohon_segitiga_4
+    100052: pohon_segitiga_5
+    100054: pohon_segitiga_6
+    100056: pohon_segitiga_8
+    100058: rumput
+    100060: tugu_teman
+    400000: aspal
+    400002: CINEMA_4D_Editor
+    400004: intel
+    400006: //RootNode
+    400008: ITB
+    400010: jembatan
+    400012: jembatan_1
+    400014: jembatan_1_2
+    400016: jembatan_2
+    400018: labtek
+    400020: labtek_1
+    400022: labtek_1_2
+    400024: labtek_1_3
+    400026: labtek_2
+    400028: labtek_3
+    400030: pohon
+    400032: pohon_1
+    400034: pohon_2
+    400036: pohon_2_2
+    400038: pohon_4
+    400040: pohon_segitiga
+    400042: pohon_segitiga_1
+    400044: pohon_segitiga_2
+    400046: pohon_segitiga_2_2
+    400048: pohon_segitiga_3
+    400050: pohon_segitiga_4
+    400052: pohon_segitiga_5
+    400054: pohon_segitiga_6
+    400056: pohon_segitiga_8
+    400058: rumput
+    400060: tugu_teman
+    2000000: CINEMA_4D_Editor
+    2300000: aspal
+    2300002: intel
+    2300004: jembatan
+    2300006: jembatan_1
+    2300008: jembatan_1_2
+    2300010: jembatan_2
+    2300012: labtek
+    2300014: labtek_1_2
+    2300016: labtek_1_3
+    2300018: labtek_3
+    2300020: pohon_1
+    2300022: pohon_2
+    2300024: pohon_2_2
+    2300026: pohon_4
+    2300028: pohon_segitiga_1
+    2300030: pohon_segitiga_2
+    2300032: pohon_segitiga_2_2
+    2300034: pohon_segitiga_3
+    2300036: pohon_segitiga_4
+    2300038: pohon_segitiga_5
+    2300040: pohon_segitiga_6
+    2300042: pohon_segitiga_8
+    2300044: rumput
+    2300046: tugu_teman
+    3300000: aspal
+    3300002: intel
+    3300004: jembatan
+    3300006: jembatan_1
+    3300008: jembatan_1_2
+    3300010: jembatan_2
+    3300012: labtek
+    3300014: labtek_1_2
+    3300016: labtek_1_3
+    3300018: labtek_3
+    3300020: pohon_1
+    3300022: pohon_2
+    3300024: pohon_2_2
+    3300026: pohon_4
+    3300028: pohon_segitiga_1
+    3300030: pohon_segitiga_2
+    3300032: pohon_segitiga_2_2
+    3300034: pohon_segitiga_3
+    3300036: pohon_segitiga_4
+    3300038: pohon_segitiga_5
+    3300040: pohon_segitiga_6
+    3300042: pohon_segitiga_8
+    3300044: rumput
+    3300046: tugu_teman
+    4300000: tugu_teman
+    4300002: pohon_segitiga_6
+    4300004: pohon_segitiga_5
+    4300006: pohon_segitiga_4
+    4300008: pohon_segitiga_3
+    4300010: pohon_segitiga_2
+    4300012: pohon_segitiga_1
+    4300014: pohon_segitiga_2_2
+    4300016: pohon_segitiga_8
+    4300018: pohon_2
+    4300020: pohon_1
+    4300022: pohon_2_2
+    4300024: pohon_4
+    4300026: aspal
+    4300028: intel
+    4300030: rumput
+    4300032: labtek_1_2
+    4300034: jembatan_1
+    4300036: jembatan
+    4300038: labtek
+    4300040: labtek_1_3
+    4300042: jembatan_1_2
+    4300044: jembatan_2
+    4300046: labtek_3
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: 3a07309d0bd80b646be2fb3417f305ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: air
+    second: {fileID: 2100000, guid: b2ce9488461c7d540b99b0fae6dbdd7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: batu
+    second: {fileID: 2100000, guid: 5adefef38faa35b41a1691fb145b2d6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pohon
+    second: {fileID: 2100000, guid: 076fc3e1b1998b343b8f5bc6f49d0621, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rumput
+    second: {fileID: 2100000, guid: 61696b21a5c6f7e4f9a02b6a6459bfa3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tembok
+    second: {fileID: 2100000, guid: f76ff7b55864ac84eb3f38b228ec39b2, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

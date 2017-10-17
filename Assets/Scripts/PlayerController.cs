@@ -5,24 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     
+	// Character Object
     public GameObject[] charactersPrefab;
-    public GameObject playerOneCam;
-    public GameObject playerTwoCam;
+
+	// Player Character
+	GameObject playerOneObj;
+	GameObject playerTwoObj;
+	GameObject playerThreeObj;
+
+	// Camera
+	public GameObject playerCamera;
     public Text timerText;
     public Canvas pauseMenu;
 
-    public Text gameInfoP1;
-    public Text gameInfoP2;
+    public Text cdtimer;
 
     public Text coinsP1;
     public Text coinsP2;
-
-    GameObject playerOneObj;
-    GameObject playerTwoObj;
+	public Text coinsP3;
 
 	private GestureListener simplegl;
 	private int tempjump;
-    private float countDown = 3f;
+    private float countDown = 6f;
     private float timer = 0;
     private float minutes = 0;
     private float seconds = 0;
@@ -32,60 +36,112 @@ public class PlayerController : MonoBehaviour {
     bool isHighJump = false;
 
     bool finish = false;
+	bool ready1 = false;
+	bool ready2 = false;
+	bool ready3 = false;
 
+	// Player Component
     Player playerOne;
     Player playerTwo;
+	Player playerThree;
 
 	void Start () {
 
 		//Instantiate player object
-		simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
+		// simplegl = GameObject.Find("Kinect").GetComponent<GestureListener>();
 
-        // Instantiate player object
-        playerOneObj = Instantiate(charactersPrefab[Settings.Instance.CharacterCode(Settings.Instance.playerOne)]);
-        playerTwoObj = Instantiate(charactersPrefab[Settings.Instance.CharacterCode(Settings.Instance.playerTwo)]);
+        // Instantiate player object with default character
+        playerOneObj = Instantiate(charactersPrefab[0]);	// Orang Utan
+        playerTwoObj = Instantiate(charactersPrefab[3]);	// Tapir
+		playerThreeObj = Instantiate(charactersPrefab[4]);	// Harimau
 
+		// Instantiate Position
         playerOneObj.transform.Translate(-3, 0, 0);
-        playerTwoObj.transform.Translate(3, 0, 0);
+        playerTwoObj.transform.Translate(0, 0, 0);
+		playerThreeObj.transform.Translate (3, 0, 0);
 
+		// Get component
         playerOne = playerOneObj.GetComponent<Player>();
         playerTwo = playerTwoObj.GetComponent<Player>();
+		playerThree = playerThreeObj.GetComponent<Player>();
 
         // Set camera
-        playerOneCam.GetComponent<CameraController>().SetPlayer(playerOneObj);
-        playerTwoCam.GetComponent<CameraController>().SetPlayer(playerTwoObj);
+		playerCamera.GetComponent<CameraController> ().SetPlayer(playerTwoObj, 2);
 
-        pauseMenu.gameObject.SetActive(true);
+		// Initialize Pause
+        pauseMenu.gameObject.SetActive(false);
         pauseMenu.enabled = false;
     }
-	
+
+	void cameraControl(){
+		if (playerOneObj.transform.position.z < playerTwoObj.transform.position.z) {
+			if (playerOneObj.transform.position.z < playerThreeObj.transform.position.z) {
+				playerCamera.GetComponent<CameraController> ().SetPlayer(playerOneObj, 1);
+			} else {
+				playerCamera.GetComponent<CameraController> ().SetPlayer(playerThreeObj, 3);
+			}
+		} else {
+			if (playerTwoObj.transform.position.z <= playerThreeObj.transform.position.z) {
+				playerCamera.GetComponent<CameraController> ().SetPlayer(playerTwoObj, 2);
+			} else {
+				playerCamera.GetComponent<CameraController> ().SetPlayer(playerThreeObj, 3);
+			}
+		}
+	}
+
+	void loginUser () {
+		// Control Player 1
+		if(Input.GetKeyDown("z")){
+			controlPlayer (playerOne);
+			ready1 = true;
+		}
+		// Control Player 2
+		if(Input.GetKeyDown("x")){
+			controlPlayer (playerTwo);
+			ready2 = true;
+		}
+		// Control Player 3
+		if(Input.GetKeyDown("c")){
+			controlPlayer (playerThree);
+			ready3 = true;
+		}
+	}
 
 	void Update () {
-		
+
+		// Camera Control
+		cameraControl();
+
+		// Pause Listener
         if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("P1_StartButton"))
         {
             gamePaused = !gamePaused;
             pauseMenu.enabled = gamePaused;
         }
+
 		// Initialized Game
         if (!gameStarted)
         {
+			loginUser ();
             // Print count down text
-            if (countDown >= 0.5)
-            {
-                gameInfoP1.text = countDown.ToString("0");
-                gameInfoP2.text = countDown.ToString("0");
+			if (countDown >= 3.0){
+				cdtimer.text = "Get Ready";
+				countDown -= Time.deltaTime;
+			}
+			else if (countDown >= 0.5)
+			{
+				cdtimer.text = countDown.ToString("0");
                 countDown -= Time.deltaTime;
 
             }
             else
             {
-                gameInfoP1.text = "";
-                gameInfoP2.text = "";
+				cdtimer.text = "";
                 gameStarted = true;
             }    
         }
 
+		// Game Paused
         if (gamePaused)
         {
 			if (Input.GetButtonDown ("P1_AButton")) {
@@ -104,8 +160,7 @@ public class PlayerController : MonoBehaviour {
             coinsP1.text = playerOne.GetCoins().ToString();
             coinsP2.text = playerTwo.GetCoins().ToString();
 
-			buttonListener ("P1");
-			buttonListener ("P2");
+			buttonListener2();
 
 //			if (simplegl.IsJump(0) || Input.GetKeyDown("space")) {
 //				if (!playerOne.isEffectMud)
@@ -148,25 +203,23 @@ public class PlayerController : MonoBehaviour {
         }
 
 		// End Game
-        if (playerOne.isFinish() || playerTwo.isFinish())
+		if (playerOne.isFinish() && playerTwo.isFinish() && playerThree.isFinish())
         {
             finish = true;
             if (playerOne.isFinish())
             {
-                gameInfoP1.text = "You Win!";
-                gameInfoP2.text = "You Lose!";
+                cdtimer.text = "You Win!";
 
-                playerOneCam.GetComponent<CameraController>().setIsFinished(true);
-                playerOneCam.transform.RotateAround(playerOneObj.transform.position, Vector3.up, 10 * Time.deltaTime);
+                // playerOneCam.GetComponent<CameraController>().setIsFinished(true);
+                // playerOneCam.transform.RotateAround(playerOneObj.transform.position, Vector3.up, 10 * Time.deltaTime);
 
             }
             else
             {
-                gameInfoP1.text = "You Lose!";
-                gameInfoP2.text = "You Win!";
+                cdtimer.text = "You Lose!";
 
-                playerTwoCam.GetComponent<CameraController>().setIsFinished(true);
-                playerTwoCam.transform.RotateAround(playerTwoObj.transform.position, Vector3.up, 10 * Time.deltaTime);
+                // playerTwoCam.GetComponent<CameraController>().setIsFinished(true);
+                // playerTwoCam.transform.RotateAround(playerTwoObj.transform.position, Vector3.up, 10 * Time.deltaTime);
             }
         }
 
@@ -182,6 +235,42 @@ public class PlayerController : MonoBehaviour {
             StopCoroutine(defaultJump());
         }
     }
+
+	public void controlPlayer(Player player){
+		
+		// Check Status Mud Player
+		float i = 1.0f;
+		if (player.isEffectMud){
+			i = 0.5f;
+		}else{
+			i = 1.0f;
+		}
+
+		// Jump
+		if(!player.isFinish() && gameStarted){
+			player.JumpForward (i);
+		}
+
+		if (!gameStarted){
+			player.JumpDefault ();
+		}
+	}
+
+	public void buttonListener2(){
+		
+		// Control Player 1
+		if(Input.GetKeyDown("z")){
+			controlPlayer (playerOne);
+		}
+		// Control Player 2
+		if(Input.GetKeyDown("x")){
+			controlPlayer (playerTwo);
+		}
+		// Control Player 3
+		if(Input.GetKeyDown("c")){
+			controlPlayer (playerThree);
+		}
+	}
 
 	public void buttonListener(System.String player){
 		Player target = playerOneObj.GetComponent<Player>();
@@ -261,6 +350,7 @@ public class PlayerController : MonoBehaviour {
         isLoncatKecil = false;
         playerOne.JumpDefault();
         playerTwo.JumpDefault();
+		playerThree.JumpDefault();
         yield return new WaitForSeconds(1f);
         isLoncatKecil = true;
     }
